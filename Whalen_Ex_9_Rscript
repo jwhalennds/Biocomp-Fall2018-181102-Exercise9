@@ -1,0 +1,22 @@
+#Ex. 9
+
+#Problem 1
+zipcodes=read.csv(file="zips_censusbureau_copy.csv", stringsAsFactors = FALSE) #loads data and assigns it to object zipcodes
+head(zipcodes)
+a=ggplot(data=zipcodes, aes(Unemployment_rate, Mean_Income))
+a+geom_point()+stat_smooth(method="lm")
+
+
+#Problem 2
+data=read.table(file="data.txt", header = TRUE, sep = ",") #loads data of file into object "data"
+head(data) 
+b=ggplot(data = data) #creates object to plot the object "data"
+b+geom_bar(aes(x=as.factor(region), y=observations), stat = "summary", fun.y="mean", color="black")+theme_classic() #barplot of means for observations of each region
+tapply(X=data$observations, INDEX = data$region, FUN=mean) #finds means of observations for each different region to compare bar graph to 
+
+b=ggplot(data = data, aes(as.factor(region), observations)) #creates object to the plot the object "data"
+b+geom_jitter() #creates a scatterplot with the observations spaced out a bit for each region to make them easier to see
+#the bar plots and scatter plots tell different things because the bar plot does not show the spread or variation among the observations, just the means 
+#whereas the scatterplot shows the variation in each group and whether the observations are more clustered or not; many of the observations
+#the north are all around the same value, whereas the south region has two distinct groups of average values, the west region has observations that are only
+#between 0 and 30 with a large spread in the distribution of the values
